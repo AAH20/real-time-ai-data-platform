@@ -1,0 +1,17 @@
+name: Real-time data and decision intelligence CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.13"}
+      - run: PYTHONPATH=src python -m unittest discover -s tests -v
+      - run: PYTHONPATH=src python -m realtimeiq.cli examples/revenue-at-risk/scenario.json --output generated/revenue-at-risk
+      - run: git diff --exit-code generated/revenue-at-risk
+      - run: python -m compileall -q src tests

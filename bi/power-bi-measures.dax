@@ -1,0 +1,56 @@
+Modeled Expected Value USD =
+SUM ( fact_revenue_risk_decision[expected_value_usd] )
+
+Realized Value USD =
+SUM ( fact_revenue_risk_decision[realized_value_usd] )
+
+Intervention Cost USD =
+SUM ( fact_revenue_risk_decision[intervention_cost_usd] )
+
+Net Realized Value USD =
+[Realized Value USD] - [Intervention Cost USD]
+
+Value Realization Rate =
+DIVIDE ( [Realized Value USD], [Modeled Expected Value USD] )
+
+Orders Evaluated =
+DISTINCTCOUNT ( fact_revenue_risk_decision[order_id] )
+
+High Risk Orders =
+CALCULATE (
+    [Orders Evaluated],
+    fact_revenue_risk_decision[predicted_delay_probability] >= 0.5
+)
+
+Average Data Freshness Seconds =
+AVERAGE ( fact_revenue_risk_decision[data_freshness_seconds] )
+
+Precision =
+VAR TruePositives =
+    CALCULATE (
+        COUNTROWS ( fact_revenue_risk_decision ),
+        fact_revenue_risk_decision[predicted_delay_probability] >= 0.5,
+        fact_revenue_risk_decision[actual_delayed] = TRUE ()
+    )
+VAR FalsePositives =
+    CALCULATE (
+        COUNTROWS ( fact_revenue_risk_decision ),
+        fact_revenue_risk_decision[predicted_delay_probability] >= 0.5,
+        fact_revenue_risk_decision[actual_delayed] = FALSE ()
+    )
+RETURN DIVIDE ( TruePositives, TruePositives + FalsePositives )
+
+Recall =
+VAR TruePositives =
+    CALCULATE (
+        COUNTROWS ( fact_revenue_risk_decision ),
+        fact_revenue_risk_decision[predicted_delay_probability] >= 0.5,
+        fact_revenue_risk_decision[actual_delayed] = TRUE ()
+    )
+VAR FalseNegatives =
+    CALCULATE (
+        COUNTROWS ( fact_revenue_risk_decision ),
+        fact_revenue_risk_decision[predicted_delay_probability] < 0.5,
+        fact_revenue_risk_decision[actual_delayed] = TRUE ()
+    )
+RETURN DIVIDE ( TruePositives, TruePositives + FalseNegatives )

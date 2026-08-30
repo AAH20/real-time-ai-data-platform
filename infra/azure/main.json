@@ -1,0 +1,132 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.46.1.21595",
+      "templateHash": "13632467709102608517"
+    }
+  },
+  "parameters": {
+    "suffix": {
+      "type": "string",
+      "metadata": {
+        "description": "Short lowercase suffix used in globally unique resource names."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Azure region for the evidence plane."
+      }
+    },
+    "deployStreaming": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Deploy Event Hubs only for a live streaming demonstration. Disabled by default to control cost."
+      }
+    },
+    "tags": {
+      "type": "object",
+      "defaultValue": {
+        "workload": "real-time-ai-data-platform",
+        "evidence": "synthetic-demo",
+        "managedBy": "bicep"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2023-09-01",
+      "name": "[format('law-realtimeiq-{0}', parameters('suffix'))]",
+      "location": "[parameters('location')]",
+      "tags": "[parameters('tags')]",
+      "properties": {
+        "retentionInDays": 30,
+        "sku": {
+          "name": "PerGB2018"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Insights/components",
+      "apiVersion": "2020-02-02",
+      "name": "[format('appi-realtimeiq-{0}', parameters('suffix'))]",
+      "location": "[parameters('location')]",
+      "kind": "web",
+      "tags": "[parameters('tags')]",
+      "properties": {
+        "Application_Type": "web",
+        "WorkspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', format('law-realtimeiq-{0}', parameters('suffix')))]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.OperationalInsights/workspaces', format('law-realtimeiq-{0}', parameters('suffix')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2023-05-01",
+      "name": "[format('strealtimeiq{0}', parameters('suffix'))]",
+      "location": "[parameters('location')]",
+      "tags": "[parameters('tags')]",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "kind": "StorageV2",
+      "properties": {
+        "allowBlobPublicAccess": false,
+        "minimumTlsVersion": "TLS1_2",
+        "supportsHttpsTrafficOnly": true
+      }
+    },
+    {
+      "condition": "[parameters('deployStreaming')]",
+      "type": "Microsoft.EventHub/namespaces",
+      "apiVersion": "2024-01-01",
+      "name": "[format('evhns-realtimeiq-{0}', parameters('suffix'))]",
+      "location": "[parameters('location')]",
+      "tags": "[parameters('tags')]",
+      "sku": {
+        "name": "Standard",
+        "tier": "Standard",
+        "capacity": 1
+      },
+      "properties": {
+        "isAutoInflateEnabled": false,
+        "publicNetworkAccess": "Enabled",
+        "minimumTlsVersion": "1.2"
+      }
+    },
+    {
+      "condition": "[parameters('deployStreaming')]",
+      "type": "Microsoft.EventHub/namespaces/eventhubs",
+      "apiVersion": "2024-01-01",
+      "name": "[format('{0}/{1}', format('evhns-realtimeiq-{0}', parameters('suffix')), 'order-risk-events')]",
+      "properties": {
+        "messageRetentionInDays": 1,
+        "partitionCount": 2
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.EventHub/namespaces', format('evhns-realtimeiq-{0}', parameters('suffix')))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "applicationInsightsId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Insights/components', format('appi-realtimeiq-{0}', parameters('suffix')))]"
+    },
+    "evidenceStorageId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Storage/storageAccounts', format('strealtimeiq{0}', parameters('suffix')))]"
+    },
+    "streamingEnabled": {
+      "type": "bool",
+      "value": "[parameters('deployStreaming')]"
+    }
+  }
+}

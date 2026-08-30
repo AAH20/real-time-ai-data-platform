@@ -1,0 +1,20 @@
+{
+  "scenario": "Real-time revenue-at-risk predictive and prescriptive analytics",
+  "freshness_slo_seconds": 30,
+  "model_policy": {"decision_threshold": 0.5, "intervention_threshold": 0.25},
+  "unit_economics": {"events_processed": 500000000, "cost_per_million_events_usd": 16.0},
+  "orders": [
+    {"order_id":"ORD-1001","customer_id":"ACME-EU","order_value_usd":180000,"gross_margin_pct":0.34,"contract_penalty_usd":18000,"supplier_delay_hours":54,"inventory_coverage_ratio":0.18,"open_incidents":2,"sentiment":"negative","customer_tier":"strategic","actual_delayed":true},
+    {"order_id":"ORD-1002","customer_id":"NOVA-US","order_value_usd":95000,"gross_margin_pct":0.29,"contract_penalty_usd":9000,"supplier_delay_hours":7,"inventory_coverage_ratio":0.88,"open_incidents":0,"sentiment":"positive","customer_tier":"standard","actual_delayed":false},
+    {"order_id":"ORD-1003","customer_id":"ORBIT-UK","order_value_usd":240000,"gross_margin_pct":0.37,"contract_penalty_usd":24000,"supplier_delay_hours":38,"inventory_coverage_ratio":0.31,"open_incidents":1,"sentiment":"negative","customer_tier":"strategic","actual_delayed":true},
+    {"order_id":"ORD-1004","customer_id":"KINETIC-AE","order_value_usd":72000,"gross_margin_pct":0.26,"contract_penalty_usd":5000,"supplier_delay_hours":12,"inventory_coverage_ratio":0.65,"open_incidents":1,"sentiment":"neutral","customer_tier":"standard","actual_delayed":false},
+    {"order_id":"ORD-1005","customer_id":"HELIX-DE","order_value_usd":310000,"gross_margin_pct":0.41,"contract_penalty_usd":35000,"supplier_delay_hours":61,"inventory_coverage_ratio":0.12,"open_incidents":3,"sentiment":"negative","customer_tier":"strategic","actual_delayed":true},
+    {"order_id":"ORD-1006","customer_id":"SUMMIT-CA","order_value_usd":125000,"gross_margin_pct":0.32,"contract_penalty_usd":12000,"supplier_delay_hours":26,"inventory_coverage_ratio":0.44,"open_incidents":1,"sentiment":"neutral","customer_tier":"standard","actual_delayed":true},
+    {"order_id":"ORD-1007","customer_id":"PULSE-AU","order_value_usd":88000,"gross_margin_pct":0.28,"contract_penalty_usd":7000,"supplier_delay_hours":4,"inventory_coverage_ratio":0.93,"open_incidents":0,"sentiment":"positive","customer_tier":"standard","actual_delayed":false},
+    {"order_id":"ORD-1008","customer_id":"VERTEX-FR","order_value_usd":205000,"gross_margin_pct":0.36,"contract_penalty_usd":21000,"supplier_delay_hours":34,"inventory_coverage_ratio":0.39,"open_incidents":2,"sentiment":"negative","customer_tier":"strategic","actual_delayed":true},
+    {"order_id":"ORD-1009","customer_id":"LUMEN-NL","order_value_usd":64000,"gross_margin_pct":0.25,"contract_penalty_usd":4000,"supplier_delay_hours":18,"inventory_coverage_ratio":0.58,"open_incidents":0,"sentiment":"neutral","customer_tier":"standard","actual_delayed":false},
+    {"order_id":"ORD-1010","customer_id":"ATLAS-US","order_value_usd":270000,"gross_margin_pct":0.39,"contract_penalty_usd":30000,"supplier_delay_hours":45,"inventory_coverage_ratio":0.27,"open_incidents":2,"sentiment":"negative","customer_tier":"strategic","actual_delayed":true},
+    {"order_id":"ORD-1011","customer_id":"EMBER-SE","order_value_usd":112000,"gross_margin_pct":0.31,"contract_penalty_usd":10000,"supplier_delay_hours":9,"inventory_coverage_ratio":0.81,"open_incidents":0,"sentiment":"neutral","customer_tier":"standard","actual_delayed":false},
+    {"order_id":"ORD-1012","customer_id":"QUANTUM-SG","order_value_usd":156000,"gross_margin_pct":0.33,"contract_penalty_usd":16000,"supplier_delay_hours":29,"inventory_coverage_ratio":0.49,"open_incidents":1,"sentiment":"negative","customer_tier":"strategic","actual_delayed":true}
+  ]
+}

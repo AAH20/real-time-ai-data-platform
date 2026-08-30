@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a2zsoc.com/schemas/order-risk-event-v1.json",
+  "title": "OrderRiskEvent",
+  "type": "object",
+  "required": ["event_id", "event_time", "event_type", "order_id", "customer_id", "schema_version"],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "event_time": {"type": "string", "format": "date-time"},
+    "event_type": {"enum": ["order.created", "inventory.changed", "supplier.delayed", "incident.opened", "outcome.recorded"]},
+    "order_id": {"type": "string", "minLength": 1},
+    "customer_id": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "1.0.0"},
+    "payload": {"type": "object"},
+    "traceparent": {"type": "string"}
+  },
+  "additionalProperties": false
+}

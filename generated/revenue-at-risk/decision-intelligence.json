@@ -1,0 +1,187 @@
+{
+  "schema_version": "realtimeiq/v1",
+  "scenario": "Real-time revenue-at-risk predictive and prescriptive analytics",
+  "evidence_level": "deterministic-synthetic-case-study",
+  "freshness_slo_seconds": 30,
+  "decisions": [
+    {
+      "order_id": "ORD-1001",
+      "customer_id": "ACME-EU",
+      "predicted_delay_probability": 0.961469,
+      "risk_band": "critical",
+      "recommended_action": "reroute-inventory",
+      "expected_loss_without_action_usd": 76148.34,
+      "intervention_cost_usd": 410.0,
+      "expected_value_usd": 32854.0,
+      "actual_delayed": true
+    },
+    {
+      "order_id": "ORD-1002",
+      "customer_id": "NOVA-US",
+      "predicted_delay_probability": 0.065804,
+      "risk_band": "low",
+      "recommended_action": "observe",
+      "expected_loss_without_action_usd": 2405.14,
+      "intervention_cost_usd": 0.0,
+      "expected_value_usd": 0.0,
+      "actual_delayed": false
+    },
+    {
+      "order_id": "ORD-1003",
+      "customer_id": "ORBIT-UK",
+      "predicted_delay_probability": 0.823683,
+      "risk_band": "critical",
+      "recommended_action": "reroute-inventory",
+      "expected_loss_without_action_usd": 92911.44,
+      "intervention_cost_usd": 410.0,
+      "expected_value_usd": 46966.0,
+      "actual_delayed": true
+    },
+    {
+      "order_id": "ORD-1004",
+      "customer_id": "KINETIC-AE",
+      "predicted_delay_probability": 0.190387,
+      "risk_band": "low",
+      "recommended_action": "observe",
+      "expected_loss_without_action_usd": 4515.98,
+      "intervention_cost_usd": 0.0,
+      "expected_value_usd": 0.0,
+      "actual_delayed": false
+    },
+    {
+      "order_id": "ORD-1005",
+      "customer_id": "HELIX-DE",
+      "predicted_delay_probability": 0.986653,
+      "risk_band": "critical",
+      "recommended_action": "reroute-inventory",
+      "expected_loss_without_action_usd": 159936.45,
+      "intervention_cost_usd": 410.0,
+      "expected_value_usd": 67672.0,
+      "actual_delayed": true
+    },
+    {
+      "order_id": "ORD-1006",
+      "customer_id": "SUMMIT-CA",
+      "predicted_delay_probability": 0.402755,
+      "risk_band": "medium",
+      "recommended_action": "reroute-inventory",
+      "expected_loss_without_action_usd": 20943.26,
+      "intervention_cost_usd": 410.0,
+      "expected_value_usd": 20533.26,
+      "actual_delayed": true
+    },
+    {
+      "order_id": "ORD-1007",
+      "customer_id": "PULSE-AU",
+      "predicted_delay_probability": 0.052875,
+      "risk_band": "low",
+      "recommended_action": "observe",
+      "expected_loss_without_action_usd": 1672.97,
+      "intervention_cost_usd": 0.0,
+      "expected_value_usd": 0.0,
+      "actual_delayed": false
+    },
+    {
+      "order_id": "ORD-1008",
+      "customer_id": "VERTEX-FR",
+      "predicted_delay_probability": 0.862178,
+      "risk_band": "critical",
+      "recommended_action": "reroute-inventory",
+      "expected_loss_without_action_usd": 81734.47,
+      "intervention_cost_usd": 410.0,
+      "expected_value_usd": 39406.0,
+      "actual_delayed": true
+    },
+    {
+      "order_id": "ORD-1009",
+      "customer_id": "LUMEN-NL",
+      "predicted_delay_probability": 0.162057,
+      "risk_band": "low",
+      "recommended_action": "observe",
+      "expected_loss_without_action_usd": 3241.14,
+      "intervention_cost_usd": 0.0,
+      "expected_value_usd": 0.0,
+      "actual_delayed": false
+    },
+    {
+      "order_id": "ORD-1010",
+      "customer_id": "ATLAS-US",
+      "predicted_delay_probability": 0.930894,
+      "risk_band": "critical",
+      "recommended_action": "reroute-inventory",
+      "expected_loss_without_action_usd": 125949.96,
+      "intervention_cost_usd": 410.0,
+      "expected_value_usd": 56416.0,
+      "actual_delayed": true
+    },
+    {
+      "order_id": "ORD-1011",
+      "customer_id": "EMBER-SE",
+      "predicted_delay_probability": 0.079548,
+      "risk_band": "low",
+      "recommended_action": "observe",
+      "expected_loss_without_action_usd": 3557.39,
+      "intervention_cost_usd": 0.0,
+      "expected_value_usd": 0.0,
+      "actual_delayed": false
+    },
+    {
+      "order_id": "ORD-1012",
+      "customer_id": "QUANTUM-SG",
+      "predicted_delay_probability": 0.690723,
+      "risk_band": "high",
+      "recommended_action": "reroute-inventory",
+      "expected_loss_without_action_usd": 46609.99,
+      "intervention_cost_usd": 410.0,
+      "expected_value_usd": 27931.6,
+      "actual_delayed": true
+    }
+  ],
+  "predictive_analytics": {
+    "model": "transparent-logistic-risk-score",
+    "decision_threshold": 0.5,
+    "intervention_threshold": 0.25,
+    "confusion_matrix": {
+      "true_positive": 6,
+      "false_positive": 0,
+      "false_negative": 1,
+      "true_negative": 5
+    },
+    "precision": 1.0,
+    "recall": 0.8571,
+    "brier_score": 0.0487
+  },
+  "prescriptive_analytics": {
+    "orders_evaluated": 12,
+    "interventions_recommended": 7,
+    "modeled_gross_expected_value_usd": 291778.86,
+    "modeled_intervention_cost_usd": 2870.0
+  },
+  "unit_economics": {
+    "events_processed": 500000000,
+    "modeled_data_platform_cost_usd": 8000.0,
+    "modeled_net_expected_value_usd": 283778.86,
+    "modeled_return_per_platform_dollar": 35.47,
+    "modeled_cost_per_evaluated_order_usd": 666.67,
+    "modeled_cost_per_recommended_intervention_usd": 1142.86
+  },
+  "promotion": {
+    "status": "evaluation-only",
+    "auto_execute": false,
+    "required_gates": [
+      "live data contract validation",
+      "prospective model validation",
+      "bias review",
+      "operator approval",
+      "bounded canary",
+      "rollback"
+    ]
+  },
+  "claim_boundary": [
+    "All customers, orders, outcomes, prices and costs are synthetic scenario inputs",
+    "Predictive performance on this small deterministic fixture is not evidence of production accuracy",
+    "Expected value is modeled opportunity, not realized revenue or guaranteed savings",
+    "No Microsoft Fabric, Databricks, Kafka cloud service or customer data was accessed"
+  ],
+  "receipt_sha256": "86c813261653d3a49387aac648209da083e2ff5dacec369232b5be85098707fd"
+}
